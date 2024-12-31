@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple TODO App</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>TODO App</title>
 </head>
 <body>
-    <div class="app-container">
-        <h1>Simple TODO App</h1>
-        
-        <!-- Form to add new tasks -->
-        <form id="task-form">
-            <input type="text" id="task-input" placeholder="Enter a new task" required>
-            <button type="submit">Add Task</button>
-        </form>
-
-        <!-- Task list will be displayed here -->
-        <ul id="task-list">
-            <!-- Tasks will appear here -->
-        </ul>
+  <div class="container">
+    <h1>TODO List</h1>
+    <div class="input-area">
+      <input type="text" id="task-input" placeholder="Enter your task...">
+      <button id="add-task-btn">Add Task</button>
     </div>
-
-    <script src="app.js"></script>
+    <ul id="task-list"></ul>
+    <div id="footer">
+      <p id="task-counter">0 tasks completed out of 0</p>
+    </div>
+  </div>
+  <script src="app.js"></script>
 </body>
 </html>
