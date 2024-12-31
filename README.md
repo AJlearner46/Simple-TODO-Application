@@ -1,5 +1,7 @@
 # Simple-TODO-Application
 
+Try it out : https://ayushjrtodoapp.netlify.app/
+
 - This is a basic TODO list web application built using HTML, CSS, and JavaScript. 
 - The app allows users to manage tasks by adding, and deleting them.
 
