@@ -1,41 +1,74 @@
-// app.js
-// Get elements
-const taskForm = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
+const addTaskBtn = document.getElementById('add-task-btn');
 const taskList = document.getElementById('task-list');
+const taskCounter = document.getElementById('task-counter');
 
-// Add event listener to the form to handle adding new tasks
-taskForm.addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent form from submitting in the traditional way
+let totalTasks = 0;
+let completedTasks = 0;
 
-    // Get the task input value
-    const taskText = taskInput.value;
-    
-    if (taskText === "") {
-        alert("Please enter a task!");
-        return;
-    }
+addTaskBtn.addEventListener('click', addTask);
 
-    // Create a new list item
-    const li = document.createElement('li');
-    li.textContent = taskText;
+function addTask() {
+  const taskTitle = taskInput.value.trim();
+  if (taskTitle === '') return;
 
-    // Create a delete button for each task
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    deleteButton.classList.add('delete-btn');
+  // Create task item
+  const taskItem = document.createElement('li');
+  taskItem.classList.add('task-item');
 
-    // Append delete button to the list item
-    li.appendChild(deleteButton);
+  // Checkbox
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.addEventListener('change', toggleTaskCompletion);
 
-    // Append the new task to the task list
-    taskList.appendChild(li);
+  // Task Title
+  const taskText = document.createElement('span');
+  taskText.textContent = taskTitle;
 
-    // Clear the input field
-    taskInput.value = "";
+  // Delete Button
+  const deleteBtn = document.createElement('button');
+  deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+  deleteBtn.classList.add('delete-btn');
+  deleteBtn.addEventListener('click', deleteTask);
 
-    // Delete task when clicking the delete button
-    deleteButton.addEventListener('click', function() {
-        taskList.removeChild(li);
-    });
-});
+  // Append elements to task item
+  taskItem.appendChild(checkbox);
+  taskItem.appendChild(taskText);
+  taskItem.appendChild(deleteBtn);
+
+  // Add task item to list
+  taskList.appendChild(taskItem);
+
+  // Update counters
+  totalTasks++;
+  updateTaskCounter();
+
+  // Clear input
+  taskInput.value = '';
+}
+
+function toggleTaskCompletion(e) {
+  const taskItem = e.target.parentElement;
+  if (e.target.checked) {
+    taskItem.classList.add('completed');
+    completedTasks++;
+  } else {
+    taskItem.classList.remove('completed');
+    completedTasks--;
+  }
+  updateTaskCounter();
+}
+
+function deleteTask(e) {
+  const taskItem = e.target.parentElement.parentElement;
+  if (taskItem.querySelector('input[type="checkbox"]').checked) {
+    completedTasks--;
+  }
+  totalTasks--;
+  taskList.removeChild(taskItem);
+  updateTaskCounter();
+}
+
+function updateTaskCounter() {
+  taskCounter.textContent = `${completedTasks} tasks completed out of ${totalTasks}`;
+}
